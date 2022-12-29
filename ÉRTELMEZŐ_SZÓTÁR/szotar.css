@@ -34,6 +34,7 @@
   min-width: 25%;
   flex-grow: 1;
   line-height: 30px;
+  padding: 5px 10px;
 }
 
 .sc-cards-container {
@@ -48,7 +49,7 @@
   box-shadow: 1px 2px 5px #999;
 }
 .sc-card + .sc-card {
-  margin-top: 15;
+  margin-top: 15px;
 }
 
 .sc-card-close {
@@ -73,7 +74,14 @@
 }
 
 .sc-card-body {
-  font-size: 14px;
+  font-size: 14px !important;
+}
+
+@media only screen and (max-device-width: 600px) {
+  .sc-search-input {
+    line-height: 60px;
+    font-size: 40px;
+  }
 }
 
 footer {
