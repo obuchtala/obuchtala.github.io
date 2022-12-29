@@ -6,16 +6,16 @@
     <script type="text/javascript" src="./szotar.js"></script>
   </head>
   <body>
-    <div id="canvas">
-      <div id="title">
-        <div>ÉRTELMEZŐ SZÓTÁR+</div>
+    <div class="sc-page-canvas">
+      <div class="sc-page-header">
+        <h1 class="sc-page-title">Értelmező Szótár</h1>
         <hr>
       </div>
-      <div id="toolbar">
-        <input id="search" type="search" list="szotar_keys" onchange="handleSearch();" autofocus="true" autocomplete="true"/>
-        <div>&#128269;</div>
+      <div class="sc-search-bar">
+        <span class="sc-search-icon">&#128269;</span>
+        <input id="search" class="sc-search-input" type="search" list="szotar_keys" onchange="handleSearch();" autofocus="true" autocomplete="true"/>
       </div>
-      <div id="content"></div>
+      <div id="cards" class="sc-cards-container"></div>
     </div>
     <datalist id="szotar_keys"></datalist>
   </body>

@@ -4,7 +4,7 @@ window.state = {
 
 function renderCards() {
   let state = window.state
-  let cardContainer = window.document.querySelector('#content')
+  let cardContainer = window.document.querySelector('#cards')
   cardContainer.innerHTML = ""
   for (let card of state.displayedCards) {
     cardContainer.appendChild(renderCard(card))
@@ -13,24 +13,26 @@ function renderCards() {
 
 function renderCard(card) {
   let cardEl = window.document.createElement('div')
-  cardEl.classList.add("card")
+  cardEl.classList.add("sc-card")
   cardEl.id = card.id
   // close button
   let closeButtonEl = window.document.createElement('button')
-  closeButtonEl.classList.add('card-close')
-  closeButtonEl.textContent = 'X'
+  closeButtonEl.classList.add('sc-card-close')
+  let closeImg = window.document.createElement('img')
+  closeImg.setAttribute('src', 'close.svg')
+  closeButtonEl.appendChild(closeImg)
   closeButtonEl.addEventListener('click', () => removeCard(card))
   cardEl.appendChild(closeButtonEl)
-  // card header
-  let cardHeaderEl = window.document.createElement('div')
-  cardHeaderEl.classList.add('card-header')
-  cardHeaderEl.textContent = card.header
-  cardEl.appendChild(cardHeaderEl)
-  // card content
-  let cardContentEl = window.document.createElement('div')
-  cardContentEl.classList.add('card-content')
-  cardContentEl.innerHTML = card.content.replaceAll("\n", "<br>")
-  cardEl.appendChild(cardContentEl)
+  // card title
+  let cardTitleEl = window.document.createElement('div')
+  cardTitleEl.classList.add('sc-card-title')
+  cardTitleEl.textContent = card.header
+  cardEl.appendChild(cardTitleEl)
+  // card body
+  let cardBodyEl = window.document.createElement('div')
+  cardBodyEl.classList.add('sc-card-body')
+  cardBodyEl.innerHTML = card.content.replaceAll("\n", "<br>")
+  cardEl.appendChild(cardBodyEl)
   return cardEl
 }
 

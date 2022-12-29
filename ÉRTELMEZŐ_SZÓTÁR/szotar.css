@@ -1,55 +1,84 @@
-#title {
-  font-size: xx-large;
-  margin: 20 0;
-}
-.subtitle {
-  font-size: small;
-  color: #999;
-}
-#canvas {
-  width: 800px;
-  margin: auto;
+.sc-page-canvas {
+  font-family: Helvetica,Arial,sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+@media screen and (min-width: 600px) {
+  .sc-page-canvas {
+    max-width: 800px;
+    margin: auto;
+  }
+}
+
+.sc-page-title {
+  font-weight: 500;
+  font-size: 40pt;
+  color: #5778d8;
+}
+
+.sc-search-bar {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.sc-search-icon {
+  font-size: 20px;
+  flex-basis: 20px;
+}
+
+.sc-search-input {
+  min-width: 25%;
+  flex-grow: 1;
+  line-height: 30px;
+}
+
+.sc-cards-container {
+  margin-top: 20px;
+  min-height: 400px;
+}
+
+.sc-card {
+  position: relative;
+  padding: 20px 40px 40px 60px;
+  border: 1px #dddddd solid;
+  box-shadow: 1px 2px 5px #999;
+}
+.sc-card + .sc-card {
+  margin-top: 15;
+}
+
+.sc-card-close {
+  position: absolute;
+  top: 16px;
+  right: 12px;
+  border: 0px;
+  height: 50px;
+  width: 70px;
+  background: none;
+}
+
+.sc-card-close img {
+  width: 50px;
+  height: 50px;
+  opacity: 0.5;
+}
+
+.sc-card-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.sc-card-body {
+  font-size: 14px;
+}
+
 footer {
   font-size: smaller;
   margin-top: auto;
   color: #999;
   text-align: center;
-}
-#toolbar {
-  width: 100%;
-  display: flex;
-  flex-direction: row-reverse;
-  gap:10px;
-}
-#search {
-  min-width: 25%;
-}
-#content {
-  margin: 20 0;
-  min-height:400px;
-}
-.card {
-  position: relative;
-  padding: 20 40 40 60;
-  border: 1px #dddddd solid;
-  box-shadow: 1px 2px 5px #999;
-}
-.card + .card {
-  margin-top: 15;
-}
-.card-close {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  height: 40px;
-  width: 40px;
-  border: 1px;
-}
-.card-header {
-  font-size: larger;
-  margin-bottom: 10px;
 }
