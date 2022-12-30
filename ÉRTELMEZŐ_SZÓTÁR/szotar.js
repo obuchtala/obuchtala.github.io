@@ -11,23 +11,68 @@ function renderCards() {
   }
 }
 
+const TYPES = []
+const CARD_TITLE_RE = /^([^⬩]+)\s+([⬩]+)\s*(.*)$/
+
+function _check_all_headers() {
+  for (let entry of SZOTAR) { let m = CARD_TITLE_RE.exec(entry.header); if(!m) { console.log(entry) } }
+}
+
+function _copy_description_to_clipboard(card) {
+  navigator.clipboard.writeText(card.content);
+}
+
 function renderCard(card) {
   let cardEl = window.document.createElement('div')
   cardEl.classList.add("sc-card")
   cardEl.id = card.id
+  // copy button
+  let copyButtonEl = window.document.createElement('button')
+  copyButtonEl.classList.add('sc-card-button')
+  copyButtonEl.classList.add('sc-card-copy')
+  let copyImg = window.document.createElement('img')
+  copyImg.setAttribute('src', 'copy.svg')
+  copyButtonEl.appendChild(copyImg)
+  copyButtonEl.addEventListener('click', () => _copy_description_to_clipboard(card))
+  cardEl.appendChild(copyButtonEl)
+
   // close button
   let closeButtonEl = window.document.createElement('button')
+  closeButtonEl.classList.add('sc-card-button')
   closeButtonEl.classList.add('sc-card-close')
   let closeImg = window.document.createElement('img')
   closeImg.setAttribute('src', 'close.svg')
   closeButtonEl.appendChild(closeImg)
   closeButtonEl.addEventListener('click', () => removeCard(card))
   cardEl.appendChild(closeButtonEl)
+
   // card title
-  let cardTitleEl = window.document.createElement('div')
-  cardTitleEl.classList.add('sc-card-title')
-  cardTitleEl.textContent = card.header
-  cardEl.appendChild(cardTitleEl)
+  let cardHeaderEl = window.document.createElement('div')
+  cardHeaderEl.classList.add('sc-card-header')
+  let m = CARD_TITLE_RE.exec(card.header)
+  if (!m) {
+    window.DEBUG_TITLE = card.header
+    console.error('Could not parse title', card.header)
+    let cardTitleEl = window.document.createElement('div')
+    cardTitleEl.classList.add('sc-card-title')
+    cardTitleEl.textContent = card.header
+    cardHeaderEl.appendChild(cardTitleEl)
+  } else {
+    let cardTitleEl = window.document.createElement('div')
+    cardTitleEl.classList.add('sc-card-title')
+    cardTitleEl.textContent = m[1]
+    let cardFreqEl = window.document.createElement('div')
+    cardFreqEl.classList.add('sc-card-freq')
+    cardFreqEl.textContent = m[2]
+    let cardDetailsEl = window.document.createElement('div')
+    cardDetailsEl.classList.add('sc-card-details')
+    cardDetailsEl.textContent = m[3]
+    cardHeaderEl.appendChild(cardTitleEl)
+    cardHeaderEl.appendChild(cardFreqEl)
+    cardHeaderEl.appendChild(cardDetailsEl)
+  }
+  cardEl.appendChild(cardHeaderEl)
+
   // card body
   let cardBodyEl = window.document.createElement('div')
   cardBodyEl.classList.add('sc-card-body')
