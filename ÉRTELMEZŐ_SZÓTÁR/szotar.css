@@ -82,4 +82,10 @@
     line-height: 60px;
     font-size: 40px;
   }
+  .sc-card-title {
+    font-size: 42px;
+  }
+  .sc-card-body {
+    font-size: 28px;
+  }
 }
