@@ -18,23 +18,34 @@ function _check_all_headers() {
   for (let entry of SZOTAR) { let m = CARD_TITLE_RE.exec(entry.header); if(!m) { console.log(entry) } }
 }
 
-function _copy_description_to_clipboard(card) {
-  navigator.clipboard.writeText(card.content);
+function _translate_description(card) {
+  // only copy the 'description' which is considered everything before the first '✧' character
+  let splitIdx = card.content.indexOf('✧')
+  let description
+  if (splitIdx > -1) {
+    description = card.content.slice(0, splitIdx).trim()
+  } else {
+    description = card.content.trim()
+  }
+  let url = "https://translate.google.com/?hl=en&sl=hu&tl=de&text="+encodeURI(description)
+  let openTranslationEl = window.document.querySelector('#open_translation')
+  openTranslationEl.setAttribute('href', url)
+  openTranslationEl.click()
 }
 
 function renderCard(card) {
   let cardEl = window.document.createElement('div')
   cardEl.classList.add("sc-card")
   cardEl.id = card.id
-  // copy button
-  let copyButtonEl = window.document.createElement('button')
-  copyButtonEl.classList.add('sc-card-button')
-  copyButtonEl.classList.add('sc-card-copy')
-  let copyImg = window.document.createElement('img')
-  copyImg.setAttribute('src', 'copy.svg')
-  copyButtonEl.appendChild(copyImg)
-  copyButtonEl.addEventListener('click', () => _copy_description_to_clipboard(card))
-  cardEl.appendChild(copyButtonEl)
+  // translate button
+  let translateButtonEl = window.document.createElement('button')
+  translateButtonEl.classList.add('sc-card-button')
+  translateButtonEl.classList.add('sc-card-translate')
+  let translateImg = window.document.createElement('img')
+  translateImg.setAttribute('src', 'translate.svg')
+  translateButtonEl.appendChild(translateImg)
+  translateButtonEl.addEventListener('click', () => _translate_description(card))
+  cardEl.appendChild(translateButtonEl)
 
   // close button
   let closeButtonEl = window.document.createElement('button')
